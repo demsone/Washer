@@ -11,9 +11,10 @@ fi
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$ROOT/build/Washer" "$APP/Contents/MacOS/Washer"
+cp "$ROOT/Assets/Washer.icns" "$APP/Contents/Resources/Washer.icns"
 cat > "$APP/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict><key>CFBundleExecutable</key><string>Washer</string><key>CFBundleIdentifier</key><string>studio.tresestrellas.Washer</string><key>CFBundleName</key><string>Washer</string><key>CFBundlePackageType</key><string>APPL</string><key>LSMinimumSystemVersion</key><string>14.0</string></dict></plist>
+<plist version="1.0"><dict><key>CFBundleExecutable</key><string>Washer</string><key>CFBundleIconFile</key><string>Washer</string><key>CFBundleIdentifier</key><string>studio.tresestrellas.Washer</string><key>CFBundleName</key><string>Washer</string><key>CFBundlePackageType</key><string>APPL</string><key>LSMinimumSystemVersion</key><string>14.0</string></dict></plist>
 PLIST
 open "$APP"
