@@ -1,0 +1,19 @@
+#!/bin/zsh
+set -e
+ROOT="${0:A:h}"
+APP="$ROOT/build/Washer.app"
+mkdir -p "$ROOT/build"
+if [[ -d "${DEVELOPER_DIR:-/Applications/Xcode.app/Contents/Developer}" ]]; then
+  DEVELOPER_DIR="${DEVELOPER_DIR:-/Applications/Xcode.app/Contents/Developer}" xcrun swiftc -parse-as-library "$ROOT/Sources/Washer/main.swift" -o "$ROOT/build/Washer" -framework SwiftUI -framework AppKit
+else
+  swiftc -parse-as-library "$ROOT/Sources/Washer/main.swift" -o "$ROOT/build/Washer" -framework SwiftUI -framework AppKit
+fi
+rm -rf "$APP"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
+cp "$ROOT/build/Washer" "$APP/Contents/MacOS/Washer"
+cat > "$APP/Contents/Info.plist" <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict><key>CFBundleExecutable</key><string>Washer</string><key>CFBundleIdentifier</key><string>studio.tresestrellas.Washer</string><key>CFBundleName</key><string>Washer</string><key>CFBundlePackageType</key><string>APPL</string><key>LSMinimumSystemVersion</key><string>14.0</string></dict></plist>
+PLIST
+open "$APP"
